@@ -12,7 +12,7 @@ class dashboard extends controller {
 
     public function transaction()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Transaction';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $this->view('templates/header', $data);
         $this->view('dashboard/transactions', $data);
@@ -21,7 +21,7 @@ class dashboard extends controller {
 
     public function myproducts()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'My Products';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['products'] = $this->model('dashboard_model')->getUserProducts($data['user']['name']);
         $this->view('templates/header', $data);
@@ -57,7 +57,7 @@ class dashboard extends controller {
 
     public function newproduct()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'New Product';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['products'] = $this->model('dashboard_model')->getUserProducts($data['user']['name']);
         $this->view('templates/header', $data);
@@ -75,7 +75,7 @@ class dashboard extends controller {
 
     public function updateProduct($id)
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Update Product';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['product'] = $this->model('dashboard_model')->getUserProduct($id, $data['user']['name']);
         $this->view('templates/header', $data);
