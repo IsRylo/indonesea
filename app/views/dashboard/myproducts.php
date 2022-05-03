@@ -24,42 +24,35 @@
             </div>
         </div>
         <div class="row" style="margin-bottom: 1rem;margin-left: 1rem;">
-            <p style="color:#9191A9; font: size 19px;">Look what you have made this month</p>
+            <p style="color:#9191A9; font: size 19px;">Manage it well and get money</p>
         </div>
-        <div class="row" style="margin-left: 1rem;">
-            <div class="col">
-                <div class="card" style="height: 173px; width: 319px;">
+        <div class="row">
+        <a href="<?= base_url ?>dashboard/newproduct">
+            <button class="my-button" style="color: white; width:160px;height: 80px; margin-left:2rem">Add New Product</button>
+        </a>
+       <?php 
+        $counter = 0;
+        foreach ($data['products'] as $product) 
+        {?>
+        <div class="col">
+            <a href="<?= base_url . 'dashboard/updateProduct/'.$product['id']?>" style="text-decoration: none; color:black">
+                <div class="card" style="margin: 10px;">
+                    <img src="<?=base_img . $product['images'][0] ?>" class="card-img-top my-img-preview" alt="...">
                     <div class="card-body">
-                        <p class="card-text" style="color: #999999; font-size:18; margin-top: 1rem; margin-left: 1rem;">Customers</p>
-                        <h2 style="margin-left:1rem;"> <?= $data['user']['customers'] ?> </h2>
+                        <h5 class="card-title"><?= $product['name'] ?></h5>
+                        <p class="card-text" style="color: #999999; font-size:18">$ <?= $product['price'] ?></p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card" style="height: 173px; width: 319px;">
-                    <div class="card-body">
-                        <p class="card-text" style="color: #999999; font-size:18; margin-top: 1rem; margin-left: 1rem;">Revenue</p>
-                        <h2 style="margin-left:1rem;"> <?= $data['user']['revenue'] ?> </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="height: 173px; width: 319px;">
-                    <div class="card-body">
-                        <p class="card-text" style="color: #999999; font-size:18; margin-top: 1rem; margin-left: 1rem;">Transactions</p>
-                        <h2 style="margin-left:1rem;"> <?= $data['user']['transactions'] ?> </h2>
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
-        <div class="row" style="margin-top:2rem; margin-left:1rem">
-            <h4>Recent Transaction</h4>
-            <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
-                <div class="card-body">
-                    <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;">Transactions</p>
-                </div>
-            </div>
-        </div>
+    <?php
+    $counter++;
+    if ($counter > 3) 
+    {?>
+    </div>
+    <div class="row">
+    <?php }
+    }?>
     </div>
 </div>
 </div>
