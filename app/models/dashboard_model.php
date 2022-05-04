@@ -53,6 +53,7 @@ class dashboard_model // extends database
         $data = file_get_contents($json);
         $data = json_decode($data, true);
         array_push($data, $product);
+        $data = json_encode($data);
         file_put_contents($json, $data);
     }
 

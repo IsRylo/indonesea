@@ -27,7 +27,7 @@
             <p style="color:#9191A9; font: size 19px;">Manage it well and get money</p>
         </div>
         <div class="container-fluid" style="background-color:white; max-width:1225px; padding-inline:3rem;padding-block:1rem">
-            <form action="<?= base_url ?>dashboard/updateAccount" method="POST">
+            <form action="<?= base_url ?>dashboard/addProduct" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col mb-3" style="margin-top: 1rem;">
                         <label for="exampleInputEmail1" class="form-label">Product Name</label>
@@ -50,26 +50,38 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Description</label>
-                    <textarea class="form-control my-input" id="exampleInputPassword1" name="description" value="<?= $data['product']['description'] ?>"> </textarea>
+                    <textarea class="form-control my-input" id="exampleInputPassword1" name="description" value=""> </textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="images">
+                    <label for="exampleInputPassword1" class="form-label">Product Picture 1</label>
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Picture 2</label>
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image2">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Picture 3</label>
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image3">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Picture 4</label>
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image4">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Video</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="address">
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="video">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Certificate</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="address">
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="certificate">
                 </div>
                 <div>
                     <input type="hidden" name="id" value="<?= $data['product']['id'] ?>">
                     <input type="hidden" name="supplier" value="<?= $data['user']['name'] ?>">
                 </div>
                 <div class="mb-5">
-                    <button class="my-button" style="float:right; width:300px; height:50px" type="submit">Validate</button>
+                    <button class="my-button" style="float:right; width:300px; height:50px" type="submit" name="submit">Validate</button>
                 </div>
             </form>
         </div>

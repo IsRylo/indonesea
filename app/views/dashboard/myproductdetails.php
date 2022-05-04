@@ -27,7 +27,7 @@
             <p style="color:#9191A9; font: size 19px;">Manage it well and get money</p>
         </div>
         <div class="container-fluid" style="background-color:white; max-width:1225px; padding-inline:3rem;padding-block:1rem">
-            <form action="<?= base_url ?>dashboard/updateAccount" method="POST">
+            <form action="<?= base_url ?>dashboard/" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col mb-3" style="margin-top: 1rem;">
                         <label for="exampleInputEmail1" class="form-label">Product Name</label>
@@ -52,15 +52,28 @@
                     <label for="exampleInputPassword1" class="form-label">Description</label>
                     <textarea class="form-control my-input" id="exampleInputPassword1" name="description"><?= $data['product']['description'] ?></textarea>
                 </div>
+                <?php
+                $counter = 1;
+                foreach ($data['product']['images'] as $image) {
+                ?>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="images" value="<?= $data['product']['images'][0] ?>">
+                    <img src="<?= base_img . $image ?>" alt="" style="margin-inline:auto; max-height:200px; max-width:200px; object-fit:scale-down">
+                    <label for="exampleInputPassword1" class="form-label">Product Picture <?= $counter ?> </label>
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image<?= $counter++ ?>">
                 </div>
+                <?php  
+                }
+                ?>
                 <div class="mb-3">
+                    <video width="320" height="240" controls>
+                        <source src="<?= base_img . $data['product']['video'] ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                     <label for="exampleInputPassword1" class="form-label">Product Video</label>
                     <input type="file" class="form-control my-input" id="exampleInputPassword1" name="video" value="<?= $data['product']['video'] ?>">
                 </div>
                 <div class="mb-3">
+                    <img src="<?= base_img . $data['product']['certificate'] ?>" alt="" style="margin-inline:auto; max-height:200px; max-width:200px; object-fit:scale-down">
                     <label for="exampleInputPassword1" class="form-label">Product Certificate</label>
                     <input type="file" class="form-control my-input" id="exampleInputPassword1" name="certificate" value="<?= $data['product']['certificate'] ?>">
                 </div>
