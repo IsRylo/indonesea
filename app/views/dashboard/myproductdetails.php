@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-6 mb-3" style="margin-top:1rem;" >
                         <label for="exampleInputEmail1" class="form-label">Quantity</label>
-                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="quantity" value="<?= $data['product']['stock'] ?>">
+                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="stock" value="<?= $data['product']['stock'] ?>">
                     </div>
                 </div>
                 <div class="mb-3">

@@ -1,12 +1,16 @@
 <?php
 
 class dashboard extends controller {
-    public $message = [];
-
     public function index()
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['transactions'] = $this->model('dashboard_model')->getRecentTrans($_SESSION['id']);
+        $data['products'] = [];
+        foreach($data['transactions'] as $transaction)
+        {
+            array_push($data['products'], $this->model('market_model')->getProductPreview((int) $transaction['product_id']));
+        }
         $this->view('templates/header', $data);
         $this->view('dashboard/index', $data);
         $this->view('templates/footer', $data);
@@ -16,6 +20,12 @@ class dashboard extends controller {
     {
         $data['title'] = 'Transaction';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['transactions'] = $this->model('dashboard_model')->getTrans($_SESSION['id']);
+        $data['products'] = [];
+        foreach($data['transactions'] as $transaction)
+        {
+            array_push($data['products'], $this->model('market_model')->getProductPreview((int) $transaction['product_id']));
+        }
         $this->view('templates/header', $data);
         $this->view('dashboard/transactions', $data);
         $this->view('templates/footer', $data);
@@ -113,6 +123,16 @@ class dashboard extends controller {
         $data['title'] = 'Update Product';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['product'] = $this->model('dashboard_model')->getUserProduct($id, $data['user']['name']);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/myproductdetails', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function transactiondetails($id)
+    {
+        $data['title'] = 'Transaction Details';
+        filter_var($id, FILTER_SANITIZE_URL);
+        $data['transaction'] = $this->model('dashboard_model')->getTransDetails($id);
         $this->view('templates/header', $data);
         $this->view('dashboard/myproductdetails', $data);
         $this->view('templates/footer', $data);

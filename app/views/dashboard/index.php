@@ -54,11 +54,32 @@
         </div>
         <div class="row" style="margin-top:2rem; margin-left:1rem">
             <h4>Recent Transaction</h4>
-            <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
-                <div class="card-body">
-                    <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;">Transactions</p>
+            <?php
+            for ($i=0; $i < count($data['transactions']); $i++) { 
+            ?>
+            <a href="<?= base_url . 'dashboard/transactiondetails/' . $data['transactions'][$i]['trans_id'] ?>" style="text-decoration: none;">
+                <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <img src="<?= base_img. $data['products'][$i]['images'][0] ?>" alt="..." style="max-width: 100px; max-height:100px; border-radius:10%;">
+                            </div>
+                            <div class="col">
+                                <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['products'][$i]['name'] ?></p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['products'][$i]['supplier'] ?></p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['transactions'][$i]['date'] ?></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </a>
+            <?php
+            }
+            ?>
         </div>
     </div>
 </div>
