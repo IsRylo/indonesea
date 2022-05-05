@@ -13,6 +13,17 @@ class dashboard_model // extends database
         }
         return null;
     }
+    public function getUserInfoByName($name)
+    {
+        $json = '../app/database/users.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        foreach ($data as $user) 
+        {
+            if ($user['name'] == $name) return $user;
+        }
+        return null;
+    }
 
     public function updateAccount($newdata)
     {
@@ -112,5 +123,41 @@ class dashboard_model // extends database
             if ($transaction['trans_id'] == $id) return $transaction;
         }
         return false;
+    }
+
+    public function getRandomID() {
+        $word = array_merge(range(0, 9), range('A', 'Z'));
+        shuffle($word);
+        return substr(implode($word), 0, 6);
+    }
+    
+    public function createUniqueId() {
+        while (1) {
+           $word = $this->getRandomID();
+           if (!$this->idExists($word)) {
+               return $word;
+           }
+        }
+    }
+
+    public function idExists($word)
+    {
+        $json = '../app/database/transactions.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        foreach ($data as $transaction) {
+            if ($transaction['trans_id'] == $word) return true;
+        }
+        return false;
+    }
+
+    public function addTransaction($newdata)
+    {
+        $json = '../app/database/transactions.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        array_unshift($data, $newdata);
+        $data = json_encode($data);
+        file_put_contents($json, $data);
     }
 }

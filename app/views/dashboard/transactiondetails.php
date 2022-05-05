@@ -24,65 +24,91 @@
             </div>
         </div>
         <div class="row" style="margin-bottom: 1rem;margin-left: 1rem;">
-            <p style="color:#9191A9; font: size 19px;">Manage it well and get money</p>
+            <p style="color:#9191A9; font: size 19px; margin-left;">CODE <?= $data['transaction']['trans_id'] ?></p>
         </div>
         <div class="container-fluid" style="background-color:white; max-width:1225px; padding-inline:3rem;padding-block:1rem">
             <form action="<?= base_url ?>dashboard/addProduct" method="POST" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col mb-3" style="margin-top: 1rem;">
+                    <div class="col-3 mb-3" style="margin-top: 1rem;">
+                       <img src="<?= base_img . $data['product']['images'][0] ?>" alt="" style=" width: 200px; height:310px; object-fit:contain; margin-inline:auto; display:block">
+                    </div>
+                    <div class="col mb-3" style="margin-top:1rem; display:block" >
+                        <label for="exampleInputEmail1" class="form-label">Customer</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $data['customer_name'] ?>" disabled >
+                        <label for="exampleInputEmail1" class="form-label">Date of Transaction</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $data['transaction']['date'] ?>" disabled>
                         <label for="exampleInputEmail1" class="form-label">Product Name</label>
-                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="total" value="<?= $data['product']['name'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Total Amount</label>
+                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="total" value="<?= $data['transaction']['total'] ?>" disabled>
                     </div>
                     <div class="col mb-3" style="margin-top:1rem;" >
+                        <label for="exampleInputEmail1" class="form-label">Seller</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $data['seller_name'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Status</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="status" value="<?= $data['transaction']['status'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Amount (<?= $data['product']['unit'] ?>)</label>
+                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="amount" value="<?= $data['transaction']['amount'] ?>" disabled>
                         <label for="exampleInputEmail1" class="form-label">Price</label>
-                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="price" >
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" value="Rp <?= $data['product']['price'] . '/' . $data['product']['unit'] ?>" disabled>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6 mb-3" style="margin-top: 1rem;">
-                        <label for="exampleInputEmail1" class="form-label">Category</label>
-                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="category">
+               <h4>Shipping Information</h4>
+               <div class="row">
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="ship_name" value="<?= $data['transaction']['ship_name'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Province</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="province" value="<?= $data['transaction']['province'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Postal Code</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="postal_code" value="<?= $data['transaction']['postal_code'] ?>" disabled>
+                        <div class="col" style="display: flex;">
+                        <div style="display: flex; margin-top:6rem;">
+                            <label for="exampleInputEmail1" style="margin-block: auto; margin-right:1rem;">Shipping</label>
+                            <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="country" value="<?= $data['transaction']['ship_status'] ?>">
+                        </div>
+                   </div>
                     </div>
-                    <div class="col-6 mb-3" style="margin-top:1rem;" >
-                        <label for="exampleInputEmail1" class="form-label">Quantity</label>
-                        <input type="number" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="stock">
+                    <div class="col">
+                    <label for="exampleInputEmail1" class="form-label">Address</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="address" value="<?= $data['transaction']['address'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">City</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="city" value="<?= $data['transaction']['city'] ?>" disabled>
+                        <label for="exampleInputEmail1" class="form-label">Country</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="country" value="<?= $data['transaction']['country'] ?>" disabled>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Description</label>
-                    <textarea class="form-control my-input" id="exampleInputPassword1" name="description" value=""> </textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture 1</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture 2</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image2">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture 3</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image3">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Picture 4</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="image4">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Video</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="video">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Certificate</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="certificate">
-                </div>
-                <div>
-                    <input type="hidden" name="id" value="<?= $data['product']['id'] ?>">
-                    <input type="hidden" name="supplier" value="<?= $data['user']['name'] ?>">
-                </div>
-                <div class="mb-5">
-                    <button class="my-button" style="float:right; width:300px; height:50px" type="submit" name="submit">Validate</button>
-                </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Phone</label>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="postal_code" value="<?= $data['transaction']['postal_code'] ?>" disabled>
+                    </div>
+                    <div class="col" style="display: block;">
+                        <p style="text-align: center;margin-bottom:0px" >MOU</p>
+                        <?php
+                        if ($data['transaction']['mou'] == null) {?>
+                        <a href="<?= base_url . 'dashboard/mouexchange/' . $data['transaction']['trans_id'] ?>">Click here to specify MOU</a>
+                        <?php
+                        } else 
+                        {?>
+                        <img id="mou" src="<?= base_img . $data['transaction']['mou'] ?>" alt="" style="margin-inline: 3rem; border: 5px solid #555;">
+                        <?php
+                        }
+                        ?>
+                        <label for="exampleInputEmail1" class="form-label">Deposit</label>
+                        <?php
+                        if ($data['transaction']['deposit'] == null )
+                        {?>
+                        <a href="<?= base_url . 'dashboard/payment/' . $data['transaction']['trans_id'] ?>">Click here to pay deposit</a>
+                        <?php
+                        }
+                        ?>
+                        <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= $data['transaction']['deposit'] ?>" disabled>
+                    </div>
+               </div>
+               <div class="row" style="margin-top: 1rem;">
+                    <div class="col ms-auto mb-3">
+                        <button class="my-button" style="float:right;width:300px; height:50px" type="submit" name="submit">Complete</button>
+                    </div>
+               </div>
             </form>
         </div>
     </div>

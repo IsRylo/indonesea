@@ -30,7 +30,9 @@
             <h5 style="text-align: end;">Stock: <?= $data['product']['stock'] ?></h4>
         </div>
         <div class="col-2 ms-auto" style="padding-right: 1rem;">
-            <button class="my-button" style="width: 171px; height: 71px;">Buy Product</button>
+            <a href="<?= base_url . "dashboard/buyproduct/". $data['product']['id'] ?>">
+                <button class="my-button" style="width: 171px; height: 71px;">Buy Product</button>
+            </a>
         </div>
     </div>
 

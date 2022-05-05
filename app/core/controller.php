@@ -18,4 +18,12 @@ class controller{
 		ob_end_flush();
 		die();
 	}
+
+	public function logincheck()
+	{
+		if (!isset($_SESSION['id']))
+		{
+			$this->redirect('dashboard/login');
+		}
+	}
 }

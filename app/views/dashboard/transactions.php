@@ -31,12 +31,12 @@
                 <?php
                 for ($i=0; $i < count($data['transactions']); $i++) { 
                 ?>
-                <a href="<?= base_url . 'dashboard/transactiondetails/' . $data['transactions'][$i]['trans_id'] ?>" style="text-decoration: none;">
+                <a href="<?= base_url . 'dashboard/transactiondetails/' . $data['transactions'][$i]['trans_id'] ?>" style="text-decoration: none; margin-top:1rem;">
                     <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <img src="<?= base_img. $data['products'][$i]['images'][0] ?>" alt="..." style="max-width: 100px; max-height:100px; border-radius:10%;">
+                                    <img src="<?= base_img. $data['products'][$i]['images'][0] ?>" alt="..." style="max-width: 100px; max-height:65px; border-radius:10%;">
                                 </div>
                                 <div class="col">
                                     <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['products'][$i]['name'] ?></p>

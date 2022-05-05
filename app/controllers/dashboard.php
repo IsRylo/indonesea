@@ -131,10 +131,37 @@ class dashboard extends controller {
     public function transactiondetails($id)
     {
         $data['title'] = 'Transaction Details';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         filter_var($id, FILTER_SANITIZE_URL);
         $data['transaction'] = $this->model('dashboard_model')->getTransDetails($id);
+        $data['product'] =$this->model('market_model')->getProductPreview((int) $data['transaction']['product_id']);
+        $data['customer_name'] = $this->model('dashboard_model')->getUserInfo($data['transaction']['customer_id'])['name'];
+        $data['seller_name'] = $this->model('dashboard_model')->getUserInfo($data['transaction']['seller_id'])['name'];
         $this->view('templates/header', $data);
-        $this->view('dashboard/myproductdetails', $data);
+        $this->view('dashboard/transactiondetails', $data);
         $this->view('templates/footer', $data);
+    }
+
+    public function buyproduct($productID)
+    {
+        $data['title'] = 'Transaction Details';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        filter_var($productID, FILTER_SANITIZE_URL);
+        $data['product'] =$this->model('market_model')->getProductPreview($productID);
+        $data['customer_name'] = $data['user']['name'];
+        $data['customer_id'] = $_SESSION['id'];
+        $data['seller_name'] = $data['product']['supplier'];
+        $data['seller_id'] = $this->model('dashboard_model')->getUserInfoByName($data['seller_name'])['id'];
+        $this->view('templates/header', $data);
+        $this->view('dashboard/newtransaction', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function addTransaction()
+    {
+        $data = $_POST;
+        $data['trans_id'] = $this->model('dashboard_model')->createUniqueId();
+        $this->model('dashboard_model')->addTransaction($data);
+        $this->redirect('dashboard/transaction');
     }
 }

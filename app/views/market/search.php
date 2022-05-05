@@ -17,7 +17,7 @@
         {?>
         <div class="col">
             <div class="shadow bg-white rounded">
-                <a href="<?= base_url.'market/categories/'.$value['name'] ?>" style="text-decoration: none; color:black">
+                <a href="<?= base_url.'market/productdetails/'.$product['id'] ?>" style="text-decoration: none; color:black">
                     <div class="card" style="margin: 10px;">
                         <img src="<?=base_img . $product['images'][0] ?>" class="card-img-top my-img-preview" alt="...">
                         <div class="card-body">

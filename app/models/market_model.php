@@ -45,7 +45,7 @@ class market_model // extends database
         $json = '../app/database/products.json';
         $data = file_get_contents($json);
         $data = json_decode($data, true);
-        $allowed = ['id','name', 'images', 'supplier'];
+        $allowed = ['id','name', 'images', 'supplier', 'price', 'unit'];
         $product = [];
         foreach ($data as $product) {
             if ($product['id'] == $id) {
