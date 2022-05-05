@@ -164,4 +164,14 @@ class dashboard extends controller {
         $this->model('dashboard_model')->addTransaction($data);
         $this->redirect('dashboard/transaction');
     }
+
+    public function mouexchange($id)
+    {
+        $data['title'] = 'MOU';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['transaction'] = $this->model('dashboard_model')->getTransDetails($id);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/mou', $data);
+        $this->view('templates/footer', $data);
+    }
 }

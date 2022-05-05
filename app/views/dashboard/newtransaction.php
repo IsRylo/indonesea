@@ -65,7 +65,7 @@
                         <div class="col" style="display: flex;">
                         <div style="display: flex; margin-top:6rem;">
                             <label for="exampleInputEmail1" style="margin-block: auto; margin-right:1rem;">Shipping</label>
-                            <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="country">
+                            <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="ship_status">
                         </div>
                    </div>
                     </div>
