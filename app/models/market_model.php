@@ -85,4 +85,20 @@ class market_model // extends database
         }
         return null;
     }
+
+    public function addReview($post)
+    {
+        $product_id = $post['product_id'];
+        unset($post['product_id']);
+        $json = '../app/database/products.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        foreach ($data as $key => $product) {
+            if ($product['id'] == $product_id) {
+                array_push($data[$key]['review'], $post);
+                $data = json_encode($data);
+                file_put_contents($json, $data);
+            }
+        }
+    }
 }

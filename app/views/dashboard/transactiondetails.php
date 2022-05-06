@@ -35,7 +35,8 @@
                     <div class="col mb-3" style="margin-top:1rem; display:block" >
                         <label for="exampleInputEmail1" class="form-label">Customer</label>
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $data['customer_name'] ?>" readonly >
-                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="customer_id" value="<?= $data['customer_id'] ?>">
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="customer_id" value="<?= $data['transaction']['customer_id'] ?>">
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="trans_id" value="<?= $data['transaction']['trans_id'] ?>">
                         <label for="exampleInputEmail1" class="form-label">Date of Transaction</label>
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="date" value="<?= $data['transaction']['date'] ?>" readonly>
                         <label for="exampleInputEmail1" class="form-label">Product Name</label>
@@ -47,7 +48,7 @@
                     <div class="col mb-3" style="margin-top:1rem;" >
                         <label for="exampleInputEmail1" class="form-label">Seller</label>
                         <input type="text" class="form-control my-input" id="" aria-describedby="emailHelp" value="<?= $data['seller_name'] ?>" readonly>
-                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="seller_id" value="<?= $data['seller_id'] ?>">
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="seller_id" value="<?= $data['transaction']['seller_id'] ?>">
                         <label for="exampleInputEmail1" class="form-label">Status</label>
                         <input type="text" class="form-control my-input" id="" aria-describedby="emailHelp" name="status" value="<?= $data['transaction']['status'] ?>" readonly>
                         <label for="exampleInputEmail1" class="form-label">Amount (<?= $data['product']['unit'] ?>)</label>
@@ -96,28 +97,33 @@
                         <?php
                         }
                         ?>
-                        <br>
-                        <label for="exampleInputEmail1" class="form-label">Deposit</label>
-                        <?php
-                        if ($data['transaction']['deposit'] == null )
-                        {?>
-                        <br>
+                        <br><br>
+                        <label for="exampleInputEmail1" class="form-label">Deposit</label> <br>
                         <a href="<?= base_url . 'dashboard/payment/' . $data['transaction']['trans_id'] ?>">Click here to pay deposit</a>
-                        <?php
-                        }else
-                        {?>
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= $data['transaction']['deposit'] ?>" disabled>
-                        <?php
-                        }    
-                        ?>
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="mou" value="<?= $data['transaction']['mou'] ?>">
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= $data['transaction']['deposit'] ?>">
                     </div>
                </div>
                <div class="row" style="margin-top: 1rem;">
                     <div class="col ms-auto mb-3">
-                        <button class="my-button" style="float:right;width:300px; height:50px" type="submit">Complete</button>
+                        <button class="my-button" style="float:right;width:300px; height:50px" type="submit">Update</button>
                     </div>
                </div>
             </form>
+            <div class="row">
+            <?php 
+                if ($data['transaction']['status'] == "Completed"){
+                ?>
+                <a href="<?=  base_url . 'dashboard/review/' . $data['transaction']['trans_id'] ?>">
+                    <div class="col ms-auto mb-3">
+                        <button class="my-button" style="float:right;width:300px; height:50px">Give Review</button>
+                    </div>
+                </a>
+                <?php   
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>

@@ -49,11 +49,14 @@
                     </div>
                 </div>
                 <div class="ms-auto" style="display:flex; float:right; margin-top:4rem;">
-                    <div style="margin: 1rem; padding:1rem;background-color:#C4C4C4; border-radius:10%">
-                        <input type="text" name="payment" id="" class="my-input" style="border: hidden; border-radius: 10%;">
-                        <label for="payment">Jumlah deposit dalam RP</label>
-                    </div>
-                    <button class="my-button" style="width:150px">Submit</button>
+                    <form action="<?= base_url ?>dashboard/pay" method="post">
+                        <div style="margin: 1rem; padding:1rem;background-color:#C4C4C4; border-radius:10%">
+                            <input type="text" name="deposit" id="" class="my-input" style="border: hidden; border-radius: 10%;">
+                            <input type="hidden" name="trans_id" value="<?= $data['trans_id'] ?>">
+                            <label for="payment">Jumlah deposit dalam RP</label>
+                        </div>
+                        <button class="my-button" style="width:150px">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 class dashboard extends controller {
     public function index()
     {
+        $this->logincheck();
         $data['title'] = 'Dashboard';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['transactions'] = $this->model('dashboard_model')->getRecentTrans($_SESSION['id']);
@@ -18,6 +19,7 @@ class dashboard extends controller {
 
     public function transaction()
     {
+        $this->logincheck();
         $data['title'] = 'Transaction';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['transactions'] = $this->model('dashboard_model')->getTrans($_SESSION['id']);
@@ -33,6 +35,7 @@ class dashboard extends controller {
 
     public function myproducts()
     {
+        $this->logincheck();
         $data['title'] = 'My Products';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['products'] = $this->model('dashboard_model')->getUserProducts($data['user']['name']);
@@ -43,6 +46,7 @@ class dashboard extends controller {
     
     public function myaccount()
     {
+        $this->logincheck();
         $data['title'] = 'My Account';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $this->view('templates/header', $data);
@@ -52,23 +56,34 @@ class dashboard extends controller {
 
     public function updateAccount()
     {
+        $this->logincheck();
         $data = $_POST;
         filter_var($data, FILTER_SANITIZE_URL);
         $this->model('dashboard_model')->updateAccount($data);
         $this->redirect("dashboard/myaccount");
     }
 
-    public function payment()
+    public function payment($trans_id)
     {
+        $this->logincheck();
         $data['title'] = 'Payment';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['trans_id'] = $trans_id;
         $this->view('templates/header', $data);
         $this->view('dashboard/payment', $data);
         $this->view('templates/footer', $data);
     }
 
+    public function pay()
+    {
+        $data = $_POST;
+        $this->model('dashboard_model')->pay($data);
+        $this->redirect('dashboard/transactiondetails/' . $_POST['trans_id']);
+    }
+
     public function newproduct()
     {
+        $this->logincheck();
         $data['title'] = 'New Product';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $products = $this->model('market_model')->getAllProductPreviews();
@@ -120,6 +135,7 @@ class dashboard extends controller {
 
     public function updateProduct($id)
     {
+        $this->logincheck();
         $data['title'] = 'Update Product';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['product'] = $this->model('dashboard_model')->getUserProduct($id, $data['user']['name']);
@@ -130,6 +146,7 @@ class dashboard extends controller {
 
     public function transactiondetails($id)
     {
+        $this->logincheck();
         $data['title'] = 'Transaction Details';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         filter_var($id, FILTER_SANITIZE_URL);
@@ -144,6 +161,7 @@ class dashboard extends controller {
 
     public function buyproduct($productID)
     {
+        $this->logincheck();
         $data['title'] = 'Transaction Details';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         filter_var($productID, FILTER_SANITIZE_URL);
@@ -159,19 +177,105 @@ class dashboard extends controller {
 
     public function addTransaction()
     {
+        $this->logincheck();
         $data = $_POST;
         $data['trans_id'] = $this->model('dashboard_model')->createUniqueId();
         $this->model('dashboard_model')->addTransaction($data);
         $this->redirect('dashboard/transaction');
     }
 
+    public function updateTransaction()
+    {
+        $this->logincheck();
+        $data = $_POST;
+        $this->model('dashboard_model')->updateTransaction($data);
+        $this->redirect('dashboard/transactiondetails/' . $_POST['trans_id']);
+    }
+
     public function mouexchange($id)
     {
+        $this->logincheck();
         $data['title'] = 'MOU';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
         $data['transaction'] = $this->model('dashboard_model')->getTransDetails($id);
+        $data['mou'] = $this->model('dashboard_model')->getMOUs($id);
         $this->view('templates/header', $data);
         $this->view('dashboard/mou', $data);
         $this->view('templates/footer', $data);
+    }
+
+    public function approvemyMOU($tran_id)
+    {
+        $this->logincheck();
+        $this->model('dashboard_model')->approvemyMOU($tran_id, $_SESSION['id']);
+        $this->redirect('dashboard/mouexchange/'.$tran_id);
+        $this->redirect('dashboard/index');
+    }
+
+    public function disapprovemyMOU($tran_id)
+    {
+        $this->logincheck();
+        $this->model('dashboard_model')->disapprovemyMOU($tran_id, $_SESSION['id']);
+        $this->redirect('dashboard/mouexchange/'.$tran_id);
+    }
+
+    public function approvepartnerMOU($tran_id)
+    {
+        $this->logincheck();
+        $this->model('dashboard_model')->approvepartnerMOU($tran_id, $_SESSION['id']);
+        $this->redirect('dashboard/mouexchange/'.$tran_id);
+    }
+
+    public function disapprovepartnerMOU($tran_id)
+    {
+        $this->logincheck();
+        $this->model('dashboard_model')->disapprovepartnerMOU($tran_id, $_SESSION['id']);
+        $this->redirect('dashboard/mouexchange/'.$tran_id);
+    }
+
+    public function insertMOU()
+    {
+        $this->logincheck();
+        $data = $_POST;
+        $target_dir = '../app/views/templates/images/';
+        $target_file = $target_dir . basename($_FILES['mou']["name"]);
+        $uploadOk = 1;
+    
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk != 0) {
+            if (move_uploaded_file($_FILES['mou']["tmp_name"], $target_file)) {
+                $data['mou'] = $_FILES['mou']['name'];
+            } 
+        }
+        $this->model('dashboard_model')->updateMOU($data);
+        $this->redirect("dashboard/mouexchange/" . $_POST['trans_id']);
+    }
+
+    public function logincheck()
+    {
+        if (!isset($_SESSION['id'])) $this->redirect('login/');
+    }
+
+    public function review($trans_id)
+    {
+        $this->logincheck();
+        $data['title'] = 'MOU';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['transaction'] = $this->model('dashboard_model')->getTransDetails($trans_id);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/review', $data);
+        $this->view('templates/footer', $data);
+    }
+    
+    public function insertReview()
+    {
+        $this->logincheck();
+        $data = $_POST;
+        if ($data['customer_id'] == $_SESSION['id']) {
+            $this->model('market_model')->addReview($data);
+            $this->redirect("market/productdetails/" . $_POST['product_id']);
+        } else {
+            $this->redirect('dashboard/');
+        }
     }
 }

@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="<?= base_url ?>">Home</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Products</a>
@@ -29,11 +29,13 @@
                 <a class="nav-link" href="<?= base_url ?>dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                    <?php 
+                        if (!isset($_SESSION['id'])) echo '<a class="nav-link" href="' . base_url . 'login/">Login</a>';
+                        else echo '<a class="nav-link" href="' . base_url . 'login/signout">Sign Out</a>';
+                    ?>
                 </li>
             </ul>
             </div>
         </div>
     </nav>
-    <!-- <hr> -->
 </div>

@@ -82,8 +82,8 @@
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone">
                     </div>
                     <div class="col" style="display: block;">
-                       <input type="hidden" name="mou" value="<?= null ?>">
-                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?=null?>">
+                        <input type="hidden" name="mou" value="<?= null ?>">
+                        <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= 0 ?>">
                     </div>
                </div>
                <div class="row" style="margin-top: 1rem;">
