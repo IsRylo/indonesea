@@ -6,13 +6,12 @@
                 <img src="<?= base_img ?>E01176BD-7ED1-4E0E-9BD8-8F664AEC27D2.jpg" alt="INDONESEA" style="width:157px; height:157px; object-fit:contain">
             </a>
         </div>
-        <div class="row"><a href="<?= base_url ?>dashboard/" class="my-sidebar-option" aria-current="page">Dasboard</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/transaction" class="my-sidebar-option">Transaction</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/myproducts" class="my-sidebar-option">My Products</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/myaccount" class="my-sidebar-option">My Account</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/payment" class="my-sidebar-option">Payment</a></div>
-        <div class="row"><a href="<?= base_url ?>market/index" class="my-sidebar-option">Back to Market</a></div>
-        <div class="row" style="margin-top: 10rem; margin-bottom: 4rem"><a href="<?= base_url ?>dashboard/signout" class="my-sidebar-option">Sign Out</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/' . $data['user']['id'] ?>" class="my-sidebar-option" aria-current="page">Overview</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/transaction/' . $data['user']['id'] ?>" class="my-sidebar-option">Transactions</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/products/' . $data['user']['id']  ?>" class="my-sidebar-option">Products</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/details/' . $data['user']['id'] ?>" class="my-sidebar-option">Account Details</a></div>
+        <div class="row"><a href="<?= base_url ?>market/" class="my-sidebar-option">Back to Market</a></div>
+        <div class="row" style="margin-top: 12rem; margin-bottom: 4rem"><p> </p></div>
     </div>
     <div class="col" style="background-color: #F5F5FB;">
         <div class="row" style="margin-top: 3rem; margin-left: 1rem;">
@@ -58,7 +57,7 @@
             <?php
             for ($i=0; $i < count($data['transactions']); $i++) { 
             ?>
-            <a href="<?= base_url . 'dashboard/transactiondetails/' . $data['transactions'][$i]['trans_id'] ?>" style="text-decoration: none; margin-top:1rem;">
+            <a href="<?= base_url . 'profile/transactiondetails/' . $data['user']['id'] . '/' . $data['transactions'][$i]['trans_id'] ?>" style="text-decoration: none; margin-top:1rem;">
                 <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
                     <div class="card-body">
                         <div class="row">

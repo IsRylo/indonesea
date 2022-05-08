@@ -11,7 +11,8 @@
         <div class="row"><a href="<?= base_url ?>dashboard/myproducts" class="my-sidebar-option">My Products</a></div>
         <div class="row"><a href="<?= base_url ?>dashboard/myaccount" class="my-sidebar-option">My Account</a></div>
         <div class="row"><a href="<?= base_url ?>dashboard/payment" class="my-sidebar-option">Payment</a></div>
-        <div class="row" style="margin-top: 10rem; margin-bottom: 4rem"><a href="<?= base_url ?>market/signout" class="my-sidebar-option">Sign Out</a></div>
+        <div class="row"><a href="<?= base_url ?>market/index" class="my-sidebar-option">Back to Market</a></div>
+        <div class="row" style="margin-top: 10rem; margin-bottom: 4rem"><a href="<?= base_url ?>dashboard/signout" class="my-sidebar-option">Sign Out</a></div>
     </div>
     <div class="col" style="background-color: #F5F5FB;">
         <div class="row" style="margin-top: 3rem; margin-left: 1rem;">
@@ -74,11 +75,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Product Certificate</label>
-                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="certificate">
+                    <input type="file" class="form-control my-input" id="exampleInputPassword1" name="certificate" required>
                 </div>
                 <div>
                     <input type="hidden" name="id" value="<?= $data['product']['id'] ?>">
                     <input type="hidden" name="supplier" value="<?= $data['user']['name'] ?>">
+                    <input type="hidden" name="supplier_id" value="<?= $data['user']['id'] ?>">
                 </div>
                 <div class="mb-5">
                     <button class="my-button" style="float:right; width:300px; height:50px" type="submit" name="submit">Validate</button>

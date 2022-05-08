@@ -63,7 +63,7 @@ class dashboard extends controller {
         $this->redirect("dashboard/myaccount");
     }
 
-    public function payment($trans_id)
+    public function payment($trans_id = null)
     {
         $this->logincheck();
         $data['title'] = 'Payment';
@@ -277,5 +277,21 @@ class dashboard extends controller {
         } else {
             $this->redirect('dashboard/');
         }
+    }
+
+    public function signout()
+    {
+        unset($_SESSION['id']);
+        $this->redirect('market/');
+    }
+
+    public function request()
+    {
+        $this->logincheck();
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/request', $data);
+        $this->view('templates/footer', $data);
     }
 }

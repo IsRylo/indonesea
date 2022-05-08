@@ -19,15 +19,18 @@
 
     <div class="row">
         <div class="col-6">
-            <h4><?= $data['product']['name'] ?></h3>
-            <div style="padding-top: 3rem; display:flex">
-                <img src="<?= base_img ?>/2.png" alt="<?= base_img ?>/no.webp" style="border-radius: 50%; width: 71px; height:71px; object-fit:scale-down">
-                <h4 style="margin-top: auto; margin-bottom:auto; margin-left:1rem"><?= $data['product']['supplier'] ?></h3>
-            </div>
+            <h4><?= $data['product']['name'] ?></h4>    
+            <a href="<?= base_url . 'profile/' . $data['product']['supplier_id'] ?>" style="text-decoration:none;">
+                <div style="padding-top: 3rem; display:flex">
+                    <img src="<?= base_img ?>/2.png" alt="..." style="border-radius: 50%; width: 71px; height:71px; object-fit:scale-down">
+                    <h4 style="margin-top: auto; margin-bottom:auto; margin-left:1rem"><?= $data['product']['supplier'] ?></h4>
+                </div>
+            </a>
         </div>
         <div class="col-2 ms-auto">
-            <h4 style="text-align: end;"><?= $data['product']['price']?></h2>
-            <h5 style="text-align: end;">Stock: <?= $data['product']['stock'] ?></h4>
+            <h4 style="text-align: end;">Rp <?= $data['product']['price']?></h2>
+            <h5 style="text-align: end;">Stock: <?= $data['product']['stock'] . ' ' . $data['product']['unit'] ?></h5>
+            <h6 style="text-align: end;"><?= $data['product']['stock_terjual'] . ' ' . $data['product']['unit'] ?> Terjual</h6>
         </div>
         <div class="col-2 ms-auto" style="padding-right: 1rem;">
             <a href="<?= base_url . "dashboard/buyproduct/". $data['product']['id'] ?>">

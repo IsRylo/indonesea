@@ -199,8 +199,8 @@ class dashboard_model // extends database
         $data = json_decode($data, true);
         foreach ($data as $key => $mou) {
             if ($data[$key]['user_id'] == $user_id && $mou['trans_id'] == $tran_id) {
-               $mou['approval1'] = true;
-               break;
+                $data[$key]['approval1'] = true;
+                break;
             }
         }
         $data = json_encode($data);
@@ -265,6 +265,18 @@ class dashboard_model // extends database
                     if ($transaction['trans_id'] == $trans_id) {
                         $trans_data[$key]['mou'] = $mou['mou'];
                         $trans_data[$key]['status'] = "Ongoing";
+
+                        $product_data = file_get_contents('../app/database/products.json');
+                        $product_data = json_decode($product_data);
+                        foreach ($product_data as $key => $product) {
+                            if ($product['id'] == $transaction['product_id']) {
+                                $product_data[$key]['stock'] -= $transaction['amount'];
+                                $product_data[$key]['stock_terjual'] += $transaction['amount'];
+                                $product_data = json_encode($product_data);
+                                file_put_contents('../app/database/products.json', $product_data);
+                                break;
+                            }
+                        }
                         break;
                     }
                 }

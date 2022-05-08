@@ -6,13 +6,12 @@
                 <img src="<?= base_img ?>E01176BD-7ED1-4E0E-9BD8-8F664AEC27D2.jpg" alt="INDONESEA" style="width:157px; height:157px; object-fit:contain">
             </a>
         </div>
-        <div class="row"><a href="<?= base_url ?>dashboard/" class="my-sidebar-option" aria-current="page">Dasboard</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/transaction" class="my-sidebar-option">Transaction</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/myproducts" class="my-sidebar-option">My Products</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/myaccount" class="my-sidebar-option">My Account</a></div>
-        <div class="row"><a href="<?= base_url ?>dashboard/payment" class="my-sidebar-option">Payment</a></div>
-        <div class="row"><a href="<?= base_url ?>market/index" class="my-sidebar-option">Back to Market</a></div>
-        <div class="row" style="margin-top: 10rem; margin-bottom: 4rem"><a href="<?= base_url ?>dashboard/signout" class="my-sidebar-option">Sign Out</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/' . $data['user']['id'] ?>" class="my-sidebar-option" aria-current="page">Overview</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/transaction/' . $data['user']['id'] ?>" class="my-sidebar-option">Transactions</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/products/' . $data['user']['id']  ?>" class="my-sidebar-option">Products</a></div>
+        <div class="row"><a href="<?= base_url . 'profile/details/' . $data['user']['id'] ?>" class="my-sidebar-option">Account Details</a></div>
+        <div class="row"><a href="<?= base_url ?>market/" class="my-sidebar-option">Back to Market</a></div>
+        <div class="row" style="margin-top: 12rem; margin-bottom: 4rem"><p> </p></div>
     </div>
     <div class="col" style="background-color: #F5F5FB;">
         <div class="row" style="margin-top: 3rem; margin-left: 1rem;">
@@ -87,56 +86,12 @@
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone" value="<?= $data['transaction']['phone'] ?>" readonly>
                     </div>
                     <div class="col" style="display: block;">
-                        <p style="text-align: center;margin-bottom:0px" >Step 1: MOU</p>
-                        <?php
-                        if ($data['transaction']['mou'] == null) {?>
-                        <a href="<?= base_url . 'dashboard/mouexchange/' . $data['transaction']['trans_id'] ?>">Click here to specify MOU</a>
-                        <?php
-                        } else 
-                        {?>
-                        <img id="mou" src="<?= base_img . $data['transaction']['mou'] ?>" alt="" style="margin-inline: 3rem; border: 5px solid #555;">
-                        <p>Step 2:</p>
-                        <?php
-
-                        if ($data['transaction']['deposit'] < 0.15*$data['transaction']['total']) {
-                        ?>
-                        <label for="exampleInputEmail1" class="form-label" style="text-align:justify;">Deposit 15% from Total (Rp <?= $data['transaction']['total']*0.15 ?>)</label><br>
-                        <a href="<?= base_url . 'dashboard/payment/' . $data['transaction']['trans_id'] ?>">Click here to pay deposit</a>
-                        <?php
-                        } else { ?>
-                        <label for="exampleInputEmail1" class="form-label">Biaya sisa: <?= $data['transaction']['total'] - $data['transaction']['deposit']?></label><br>
-                        <a href="<?= base_url . 'dashboard/payment/' . $data['transaction']['trans_id'] ?>">Click here to pay remaining amount</a>
+                        <label for="exampleInputEmail1" class="form-label">Deposit</label> <br>
                         <input type="text" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= $data['transaction']['deposit'] ?>" disabled>
-                        <?php
-                        }
-                        }
-                        ?>
-                        <br><br>
                         <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="mou" value="<?= $data['transaction']['mou'] ?>">
                         <input type="hidden" class="form-control my-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="deposit" value="<?= $data['transaction']['deposit'] ?>">
                     </div>
                </div>
-            
-            <div class="row">
-            <?php 
-                if ($data['transaction']['status'] == "Completed") {
-                ?>
-                <a href="<?=  base_url . 'dashboard/review/' . $data['transaction']['trans_id'] ?>">
-                    <div class="col ms-auto mb-3">
-                        <button class="my-button" style="float:right;width:300px; height:50px">Give Review</button>
-                    </div>
-                </a>
-                <?php   
-                } else { ?>
-                <div class="row" style="margin-top: 1rem;">
-                    <div class="col ms-auto mb-3">
-                        <button class="my-button" style="float:right;width:300px; height:50px" type="submit">Update</button>
-                    </div>
-               </div>
-                <?php
-                }
-                ?>
-            </div>
             </form>
         </div>
     </div>
