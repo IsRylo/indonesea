@@ -267,7 +267,7 @@ class dashboard_model // extends database
                         $trans_data[$key]['status'] = "Ongoing";
 
                         $product_data = file_get_contents('../app/database/products.json');
-                        $product_data = json_decode($product_data);
+                        $product_data = json_decode($product_data, true);
                         foreach ($product_data as $key => $product) {
                             if ($product['id'] == $transaction['product_id']) {
                                 $product_data[$key]['stock'] -= $transaction['amount'];
@@ -315,10 +315,39 @@ class dashboard_model // extends database
             if ($transaction['trans_id'] == $payment['trans_id']) {
                 $data[$key]['deposit'] += $payment['deposit'];
                 $data = json_encode($data);
-                var_dump($data);
                 file_put_contents($json, $data);
                 return;
             }
         }
+    }
+
+    public function getAllRequests()
+    {
+        $json = '../app/database/requests.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        return $data;
+    }
+
+    public function getRequest($id)
+    {
+        $json = '../app/database/requests.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        foreach ($data as $request) {
+            if ($request['request_id'] == $id) return $request;
+        }
+    }
+
+    public function addRequest($post)
+    {
+        $json = '../app/database/requests.json';
+        $data = file_get_contents($json);
+        $data = json_decode($data, true);
+        $post['request_id'] = count($data) + 1;
+        if ($data == null) $data = $post;
+        else array_unshift($data, $post);
+        $data = json_encode($data);
+        file_put_contents($json, $data);
     }
 }

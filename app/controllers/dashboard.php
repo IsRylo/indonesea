@@ -288,10 +288,41 @@ class dashboard extends controller {
     public function request()
     {
         $this->logincheck();
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Request';
         $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['requests'] = $this->model('dashboard_model')->getAllRequests();
         $this->view('templates/header', $data);
         $this->view('dashboard/request', $data);
         $this->view('templates/footer', $data);
+    }
+
+    public function requestdetails($id)
+    {
+        $this->logincheck();
+        $data['title'] = 'Request';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $data['request'] = $this->model('dashboard_model')->getRequest($id);
+        $data['requester'] = $this->model('dashboard_model')->getUserInfo($data['request']['requester_id']);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/requestdetails', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function createrequest()
+    {
+        $this->logincheck();
+        $data['title'] = 'Request';
+        $data['user'] = $this->model('dashboard_model')->getUserInfo($_SESSION['id']);
+        $this->view('templates/header', $data);
+        $this->view('dashboard/createRequest', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function addRequest()
+    {
+        $data = $_POST;
+        var_dump($data);
+        $this->model('dashboard_model')->addRequest($data);
+        $this->redirect('dashboard/request');
     }
 }

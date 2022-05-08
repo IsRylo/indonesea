@@ -25,26 +25,32 @@
             </div>
         </div>
         <div class="row" style="margin-bottom: 1rem;margin-left: 1rem;">
-            <p style="color:#9191A9; font: size 19px; margin-left;">CODE <?= $data['transaction']['trans_id'] ?></p>
+            <p style="color:#9191A9; font: size 19px; margin-left:1rem;">Here are requests made by other people</p>
         </div>
+        <a href="<?= base_url ?>dashboard/createrequest" style="text-decoration:none;">
+            <button class="my-button" style="display: block; margin-left:auto; margin-right:1rem; margin-bottom:2rem; height:50px; width:200px;">Create new Request</button>
+        </a>
         <div class="container-fluid" style="background-color:white; max-width:1225px; padding-inline:3rem;padding-block:1rem">
-            <form action="<?= base_url ?>dashboard/insertReview" method="POST" enctype="multipart/form-data">
-                <div class="container-fluid">
-                    <input type="hidden" name="product_id" value="<?= $data['transaction']['product_id'] ?>">
-                    <input type="hidden" name="customer_id" value="<?= $data['transaction']['customer_id'] ?>">
-                    <input type="hidden" name="name" value="<?= $data['user']['name'] ?>">
-                    <input type="hidden" name="profile" value="<?= $data['user']['profile_picture'] ?>">
-                    <div>
-                        <label for="rating"><h2>Give Us Your Rating: </h2></label><br>
-                        <input type="number" class="form-control my-input" id="rating" name="rating" min="1" max="5" placeholder="1 to 5" style="text-align: center;">
+        <?php
+            for ($i=0; $i < count($data['requests']); $i++) { 
+            ?>
+            <a href="<?= base_url . 'dashboard/requestdetails/' . $data['requests'][$i]['request_id'] ?>" style="text-decoration: none; margin-top:1rem;">
+                <div class="card" style="height: 90px; width: 91.5%; margin-left: 1rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['requests'][$i]['title'] ?></p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text" style="color: #999999; font-size:18; margin-block: 1rem; margin-left: 1rem;"><?= $data['requests'][$i]['date'] ?></p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="rating"><h2>Describe Your Experience</h2></label><br>
-                        <textarea class="my-input" name="comment" id="" cols="125%" rows="5" style="display:block;margin-inline: auto;"></textarea>
-                    </div>
-                    <button class="my-button" style="display: block; margin-inline:auto; margin-block: 4rem; width:15%; height:40px;">Submit</button>
                 </div>
-            </form>
+            </a>
+            <?php
+            }
+            ?>
         </div>
     </div>
 </div>
